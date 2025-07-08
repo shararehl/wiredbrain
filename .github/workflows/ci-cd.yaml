@@ -1,0 +1,23 @@
+name: Wired Brain
+on:
+  workflow_dispatch:
+  push:
+    branches: ['main']
+jobs:
+  build:
+    runs-on: ubunto-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      - id: build
+        name: build
+        run: dotnet build --no-restore
+
